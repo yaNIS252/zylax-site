@@ -1,0 +1,144 @@
+---
+/**
+ * Comparatif.astro — Tableau comparatif vs concurrence
+ * Met en avant les avantages différenciants de Zylax par rapport aux alternatives
+ */
+
+const comparison = [
+  {
+    criterion: 'Déploiement & Hébergement',
+    zylax: 'Hébergement européen (France/UE), RGPD natif, contrôle total des données',
+    alternative1: 'Hébergement US predominant, transfert de données hors UE',
+    alternative2: 'Hébergement mixte, conformité partiellement assurée'
+  },
+  {
+    criterion: 'Modèle de Prix',
+    zylax: 'Forfait unique 300€/mois flat fee, aucune limite de volume ou de sièges',
+    alternative1: 'Prix par ticket ou par agent, coûts variables difficiles à prévoir',
+    alternative2: 'Prix par siège + frais d\'installation, engagement annuel requis'
+  },
+  {
+    criterion: 'Temps de Mise en Œuvre',
+    zylax: 'Setup en 5 jours ouvrés, accompagnement inclus, formation équipe',
+    alternative1: 'Implémentation de 4-8 semaines, consulting en sus',
+    alternative2: 'Déploiement de 2-3 semaines, configuration complexe requise'
+  },
+  {
+    criterion: 'Souveraineté Technologique',
+    zylax: 'Stack 100% européenne, LLM souverain (Mistral), aucun dépendance US',
+    alternative1: 'Dépendence à OpenAI/Anthropic (US), risques de changement de politique',
+    alternative2: 'Modèles ouverts mais infrastructure cloud US majoritaire'
+  },
+  {
+    criterion: 'Personnalisation & Contrôle',
+    zylax: 'Configuration fine du routing, seuils personnalisables, règles métier spécifiques',
+    alternative1: 'Personnalisation limitée, paramètres prédéfinis',
+    alternative2: 'Configuration basique, accès limité aux paramètres avancés'
+  },
+  {
+    criterion: 'Support & Maintenance',
+    zylax: 'Support technique inclus, mises à jour continues, monitoring proactif',
+    alternative1: 'Support en option coûteux, mises à jour majeures facturées',
+    alternative2: 'Support bancal, dépendance à la communauté open-source'
+  }
+];
+
+const alternatives = [
+  { name: 'Solutions traditionnelles de chatbot/FAQ', color: 'var(--score-low)' },
+  { name: 'Plateformes d\'automatisation génériques', color: 'var(--score-mid)' }
+];
+---
+
+<section id="comparatif" class="section" style="border-top: 1px solid var(--border);">
+  <div class="container">
+
+    <p class="eyebrow reveal">COMPARATIF CONCURRENTIEL</p>
+
+    <h2
+      class="heading-display reveal"
+      style="font-size: clamp(36px, 5vw, 64px); line-height: 1.05; margin-bottom: 24px; margin-top: 16px; max-width: 720px;"
+    >
+      Pourquoi choisir Zylax plutôt que les alternatives ?
+    </h2>
+
+    <p
+      class="reveal"
+      style="font-size: 18px; line-height: 1.7; color: var(--text-secondary); max-width: 700px; margin-bottom: 48px;"
+    >
+      Le marché de l'automatisation du supportclient présente plusieurs approches, chacune avec ses compromis.
+      Zylax se positionne comme la solution spécifiquement conçue pour les équipes techniques SaaS B2B
+      europénnes qui privilégient la souveraineté, la prévisibilité des coûts et l'efficacité opérationnelle.
+    </p>
+
+    {/* Comparison Table */}
+    <div class="reveal" style="border: 1px solid var(--border); overflow: hidden; max-width: 1000px;">
+      {/* Header */}
+      <div style="display: grid; grid-template-columns: 1.8fr 1fr 1fr 1fr; gap: 0;
+                  padding: 14px 24px; background: var(--bg-elevated); border-bottom: 1px solid var(--border);">
+        <span style="font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.12em; color: var(--text-muted);">Critère d'évaluation</span>
+        <span style="font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.12em; color: var(--text-muted); text-align: center;">Zylax</span>
+        <span style="font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.12em; color: var(--text-muted); text-align: center;">Alternative 1</span>
+        <span style="font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.12em; color: var(--text-muted); text-align: center;">Alternative 2</span>
+      </div>
+
+      {/* Rows */}
+      {comparison.map((row, i) => (
+        <div
+          key={i}
+          style={`display: grid; grid-template-columns: 1.8fr 1fr 1fr 1fr; gap: 0;
+                  padding: 20px 24px; align-items: start;
+                  ${i < comparison.length - 1 ? 'border-bottom: 1px solid var(--border);' : ''}`}
+        >
+          {/* Criterion */}
+          <span style="font-size: 14px; color: var(--text-secondary); line-height: 1.4;">
+            {row.criterion}
+          </span>
+
+          {/* Zylax */}
+          <div style="text-align: center; line-height: 1.4;">
+            <p style="font-size: 14px; color: var(--text); font-weight: 500; margin: 0;">
+              {row.zylax}
+            </p>
+          </div>
+
+          {/* Alternative 1 */}
+          <div style="text-align: center; line-height: 1.4; color: var(--text-secondary);">
+            <p style="font-size: 13px; margin: 0;">
+              {row.alternative1}
+            </p>
+          </div>
+
+          {/* Alternative 2 */}
+          <div style="text-align: center; line-height: 1.4; color: var(--text-secondary);">
+            <p style="font-size: 13px; margin: 0;">
+              {row.alternative2}
+            </p>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    {/* Alternatives description */}
+    <div class="reveal" style="margin-top: 32px; display: grid; gap: 16px;">
+      {alternatives.map((alt, i) => (
+        <div key={i} style="display: flex; align-items: center; gap: 12px;">
+          <div style="width: 8px; height: 8px; border-radius: 50%; background: {alt.color}; flex-shrink: 0;"></div>
+          <span style="font-size: 15px; color: var(--text-secondary); line-height: 1.5;">
+            {alt.name}
+          </span>
+        </div>
+      ))}
+    </div>
+
+    {/* CTA */}
+    <p
+      class="reveal"
+      style="margin-top: 24px; font-size: 18px; font-weight: 500; color: var(--text);
+             max-width: 500px; line-height: 1.5;
+             padding-left: 20px; border-left: 2px solid var(--border-strong);"
+    >
+      Prêt à découvrir comment Zylax se compare à votre solution actuelle ? <span style="color: var(--text-secondary)">Analysons votre situation spécifique lors d'une consultation gratuite.</span>
+    </p>
+
+  </div>
+</section>

@@ -1,0 +1,24 @@
+---
+/**
+ * Badge.astro — Label inline uppercase, 2 variants.
+ */
+export interface Props {
+  variant?: 'default' | 'strong';
+  class?: string;
+}
+
+const { variant = 'default', class: className = '' } = Astro.props;
+
+const base = 'inline-block px-2.5 py-1 text-[11px] font-medium uppercase tracking-[0.1em] rounded-sm';
+
+const variants = {
+  default: 'border border-[var(--border)] text-[var(--text-secondary)]',
+  strong:  'border border-[var(--border-strong)] text-[var(--text)]',
+};
+
+const classes = [base, variants[variant], className].join(' ');
+---
+
+<span class={classes}>
+  <slot />
+</span>

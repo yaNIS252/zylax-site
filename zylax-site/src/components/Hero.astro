@@ -1,0 +1,175 @@
+---
+/**
+ * Hero.astro — Section hero principale.
+ * Logo Z en watermark arrière-plan, H1 centré, stats animées au scroll.
+ */
+import Button from './ui/Button.astro';
+
+const CALENDLY = 'https://calendly.com/zylaxyanis/new-meeting';
+
+const stats = [
+  { value: '70',  suffix: ' %', label: 'TICKETS L1 RÉSOLUS AUTOMATIQUEMENT' },
+  { value: '2',   prefix: '< ', suffix: ' s', label: 'TEMPS DE RÉPONSE MOYEN' },
+  { value: '5',   suffix: ' jours', label: "D'ONBOARDING JUSQU'EN PRODUCTION" },
+];
+---
+
+<section
+  id="hero"
+  style="position: relative; overflow: hidden;
+         padding-top: 160px; padding-bottom: 160px;
+         display: flex; flex-direction: column; align-items: center;
+         text-align: center;"
+>
+  <!-- Logo Z watermark — grand, centré, très transparent -->
+  <div
+    aria-hidden="true"
+    style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+           pointer-events: none; z-index: 0; overflow: hidden;"
+  >
+    <img
+      src="/logo.png"
+      alt=""
+      style="width: min(600px, 90vw); opacity: 0.04; filter: grayscale(100%);
+             transform: scale(1.05);
+             user-select: none;"
+      loading="eager"
+      decoding="async"
+    />
+  </div>
+
+  <!-- Contenu hero — au-dessus du watermark -->
+  <div class="container" style="position: relative; z-index: 1; max-width: 880px;">
+
+    <!-- Eyebrow -->
+    <p class="eyebrow reveal">RAG SUPPORT CLIENT &nbsp;·&nbsp; SAAS B2B FRANCOPHONE</p>
+
+    <!-- H1 -->
+    <h1
+      class="heading-display reveal"
+      style="font-size: clamp(40px, 6vw, 80px); line-height: 1.0; letter-spacing: -0.025em;
+             margin-bottom: 28px; margin-top: 16px;"
+    >
+      Vos agents support répondent 70&nbsp;% du temps aux mêmes questions.
+      <span style="color: var(--text-secondary);">On automatise ça en 5 jours.</span>
+    </h1>
+
+    <!-- Subline -->
+    <p
+      class="reveal"
+      style="font-size: 18px; line-height: 1.6; color: var(--text-secondary);
+             max-width: 640px; margin: 0 auto 40px;"
+    >
+      Moteur IA qui lit votre documentation et répond directement aux tickets Zendesk ou Intercom.
+      Hébergement France, RGPD natif, <strong style="color: var(--text); font-weight: 500;">300&nbsp;€&nbsp;/&nbsp;mois flat fee.</strong>
+    </p>
+
+    <!-- CTA group -->
+    <div class="reveal" style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-bottom: 96px;">
+      <Button variant="primary" href={CALENDLY} target="_blank" rel="noopener noreferrer">
+        Réserver une démo 20 min →
+      </Button>
+      <Button variant="secondary" href="#how">
+        Voir comment ça marche ↓
+      </Button>
+    </div>
+
+    <!-- Stats grid -->
+    <div
+      class="reveal"
+      style="display: grid;
+             grid-template-columns: repeat(3, 1fr);
+             gap: 0;
+             border: 1px solid var(--border);"
+      id="stats-grid"
+    >
+      {stats.map((s, i) => (
+        <div
+          style={`padding: 32px 24px;
+                  ${i < stats.length - 1 ? 'border-right: 1px solid var(--border);' : ''}
+                  display: flex; flex-direction: column; align-items: center; gap: 12px;`}
+        >
+          <!-- Valeur numérique avec compteur animé -->
+          <div style="font-family: 'Syne', sans-serif; font-size: clamp(36px, 5vw, 56px); font-weight: 800; line-height: 1; color: var(--text); display: flex; align-items: baseline; gap: 2px;">
+            {s.prefix && <span style="font-size: 0.55em; color: var(--text-secondary);">{s.prefix}</span>}
+            <span
+              class="counter"
+              data-target={s.value}
+              data-duration="1500"
+            >0</span>
+            <span style="font-size: 0.5em; color: var(--text-secondary);">{s.suffix}</span>
+          </div>
+          <!-- Label -->
+          <p style="font-size: 10px; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); line-height: 1.4; max-width: 140px;">
+            {s.label}
+          </p>
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>
+
+<style>
+  /* Mobile : stats en colonne */
+  @media (max-width: 640px) {
+    #stats-grid {
+      grid-template-columns: 1fr !important;
+    }
+    #stats-grid > div {
+      border-right: none !important;
+      border-bottom: 1px solid var(--border);
+    }
+    #stats-grid > div:last-child {
+      border-bottom: none;
+    }
+  }
+</style>
+
+<script>
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (!prefersReduced) {
+    // Compteurs animés — se déclenchent une seule fois au premier scroll-in du stats grid
+    const statsGrid = document.getElementById('stats-grid');
+    const counters  = document.querySelectorAll('.counter');
+
+    let animated = false;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && !animated) {
+          animated = true;
+          observer.disconnect();
+
+          counters.forEach((counter) => {
+            const el       = counter as HTMLElement;
+            const target   = parseInt(el.dataset.target || '0', 10);
+            const duration = parseInt(el.dataset.duration || '1500', 10);
+            const start    = performance.now();
+
+            function tick(now: number) {
+              const elapsed  = now - start;
+              const progress = Math.min(elapsed / duration, 1);
+              // Ease-out cubic
+              const eased    = 1 - Math.pow(1 - progress, 3);
+              el.textContent = String(Math.round(eased * target));
+              if (progress < 1) requestAnimationFrame(tick);
+            }
+
+            requestAnimationFrame(tick);
+          });
+        }
+      },
+      { threshold: 0.4 }
+    );
+
+    if (statsGrid) observer.observe(statsGrid);
+  } else {
+    // Reduced motion : affiche la valeur finale directement
+    document.querySelectorAll('.counter').forEach((el) => {
+      const e = el as HTMLElement;
+      e.textContent = e.dataset.target || '0';
+    });
+  }
+</script>

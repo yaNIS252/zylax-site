@@ -1,0 +1,120 @@
+---
+/**
+ * Base.astro — Layout principal de toutes les pages Zylax.
+ * Inclut : meta tags SEO/OG, JSON-LD, preload fonts, reveal on scroll.
+ */
+export interface Props {
+  title?: string;
+  description?: string;
+  ogImage?: string;
+  canonical?: string;
+}
+
+const {
+  title = 'Zylax — Automatisation du support client SaaS B2B par RAG',
+  description = 'Moteur IA qui lit votre documentation et automatise 65-70% des tickets Zendesk ou Intercom. Hébergement France, RGPD natif, 300€/mois flat fee. Setup en 5 jours.',
+  ogImage = 'https://zylax.fr/og-image.png',
+  canonical = 'https://zylax.fr/',
+} = Astro.props;
+
+const jsonLd = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Organization',
+      name: 'Zylax',
+      url: 'https://zylax.fr',
+      logo: 'https://zylax.fr/favicon.svg',
+      email: 'yanis@zylax.fr',
+      description: 'Automatisation du support client SaaS B2B par RAG, hébergement européen, RGPD natif.',
+      address: { '@type': 'PostalAddress', addressCountry: 'FR' },
+    },
+    {
+      '@type': 'WebSite',
+      name: 'Zylax',
+      url: 'https://zylax.fr',
+    },
+  ],
+});
+---
+
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Fonts preload — priorité critique pour LCP -->
+    <link rel="preload" href="/fonts/inter-variable.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/syne-variable.woff2" as="font" type="font/woff2" crossorigin />
+
+    <!-- SEO -->
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href={canonical} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:site_name" content="Zylax" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <!-- JSON-LD structured data -->
+    <script type="application/ld+json" set:html={jsonLd} />
+
+    <!-- Sitemap -->
+    <link rel="sitemap" href="/sitemap-index.xml" />
+  </head>
+  <body>
+    <!-- Skip link accessibilité -->
+    <a href="#main-content" class="skip-link">Aller au contenu principal</a>
+
+    <slot />
+
+    <!-- Reveal on scroll — Intersection Observer pur, 0 lib externe -->
+    <script>
+      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      if (!prefersReduced) {
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('revealed');
+                // Ne se déclenche qu'une fois (premier scroll)
+                observer.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.15 }
+        );
+
+        document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+      } else {
+        // Si reduced-motion, révèle tout immédiatement
+        document.querySelectorAll('.reveal').forEach((el) => {
+          el.classList.add('revealed');
+        });
+      }
+    </script>
+  </body>
+</html>
+
+<style is:global>
+  @import '../styles/global.css';
+</style>

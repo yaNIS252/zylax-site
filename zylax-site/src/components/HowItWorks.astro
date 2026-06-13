@@ -1,0 +1,211 @@
+---
+/**
+ * HowItWorks.astro — Pipeline RAG en 5 étapes avec particule animée.
+ * Animation 100% CSS : une particule blanche traverse les étapes en boucle de 6s.
+ * Respecte prefers-reduced-motion.
+ */
+
+const steps = [
+  {
+    num: '01',
+    title: 'Ticket entrant',
+    sub: 'Zendesk / Intercom\nWebhook n8n',
+  },
+  {
+    num: '02',
+    title: 'Recherche vectorielle',
+    sub: 'Qdrant (EU)',
+  },
+  {
+    num: '03',
+    title: 'Reranking & scoring',
+    sub: 'Cross-encoder',
+  },
+  {
+    num: '04',
+    title: 'Génération',
+    sub: 'Mistral (FR)\nLLM souverain',
+  },
+  {
+    num: '05',
+    title: 'Routing automatique',
+    sub: 'Vers Zendesk\nou Intercom',
+  },
+];
+---
+
+<section id="how" class="section" style="border-top: 1px solid var(--border);">
+  <div class="container">
+
+    <p class="eyebrow reveal">LE FONCTIONNEMENT</p>
+
+    <h2
+      class="heading-display reveal"
+      style="font-size: clamp(36px, 5vw, 64px); line-height: 1.05; margin-bottom: 24px; margin-top: 16px; max-width: 680px;"
+    >
+      Du ticket reçu à la réponse envoyée
+    </h2>
+
+    <p
+      class="reveal"
+      style="font-size: 18px; line-height: 1.7; color: var(--text-secondary); max-width: 680px; margin-bottom: 72px;"
+    >
+      À chaque nouveau ticket, Zylax exécute un pipeline en 5 étapes. Il cherche les passages
+      pertinents dans votre documentation, génère une réponse ancrée dans des sources réelles,
+      et décide lui-même quoi faire selon son niveau de confiance.
+    </p>
+
+    <!-- Flow desktop : horizontal -->
+    <div class="reveal" id="flow-container" style="position: relative;">
+
+      <!-- Ligne de connexion derrière les cards -->
+      <div
+        aria-hidden="true"
+        style="position: absolute; top: 50%; left: 0; right: 0; height: 1px;
+               background: var(--border); transform: translateY(-50%); z-index: 0;
+               pointer-events: none;"
+        id="flow-line"
+      ></div>
+
+      <!-- Cards des étapes -->
+      <div
+        id="flow-steps"
+        style="position: relative; z-index: 1;
+               display: grid;
+               grid-template-columns: repeat(5, 1fr);
+               gap: 12px;"
+      >
+        {steps.map((step, i) => (
+          <div
+            class="flow-step"
+            data-index={i}
+            style="background: var(--bg-elevated);
+                   border: 1px solid var(--border);
+                   padding: 20px 16px;
+                   display: flex; flex-direction: column; gap: 8px;
+                   transition: border-color 200ms ease;"
+          >
+            <span style="font-family: 'Syne', sans-serif; font-size: 28px; font-weight: 700; color: var(--text-muted); line-height: 1;">
+              {step.num}
+            </span>
+            <span style="font-size: 13px; font-weight: 600; color: var(--text); line-height: 1.3;">
+              {step.title}
+            </span>
+            <span style="font-size: 12px; color: var(--text-secondary); line-height: 1.4; white-space: pre-line;">
+              {step.sub}
+            </span>
+          </div>
+        ))}
+      </div>
+
+      <!-- Particule animée — positionnée par JS -->
+      <div
+        id="rag-particle"
+        aria-hidden="true"
+        style="position: absolute; width: 8px; height: 8px; border-radius: 50%;
+               background: var(--accent);
+               box-shadow: 0 0 8px 2px rgba(255,255,255,0.4);
+               z-index: 2;
+               top: 50%; transform: translateY(-50%);
+               transition: left 200ms cubic-bezier(0.16, 1, 0.3, 1), opacity 200ms ease;
+               pointer-events: none;"
+      ></div>
+    </div>
+
+    <!-- Flow mobile : vertical (affiché uniquement < 768px via CSS) -->
+    <div id="flow-mobile" style="display: none; flex-direction: column; gap: 0; margin-top: 0;">
+      {steps.map((step, i) => (
+        <div style="display: flex; gap: 16px; align-items: flex-start;">
+          <!-- Ligne verticale + dot -->
+          <div style="display: flex; flex-direction: column; align-items: center; flex-shrink: 0; padding-top: 4px;">
+            <div style="width: 8px; height: 8px; border-radius: 50%; background: var(--border-strong); flex-shrink: 0;"></div>
+            {i < steps.length - 1 && (
+              <div style="width: 1px; height: 40px; background: var(--border); margin-top: 0;"></div>
+            )}
+          </div>
+          <!-- Contenu -->
+          <div style="padding-bottom: 32px;">
+            <span style="font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 700; color: var(--text-muted);">{step.num}</span>
+            <p style="font-size: 15px; font-weight: 600; color: var(--text); margin-top: 4px;">{step.title}</p>
+            <p style="font-size: 13px; color: var(--text-secondary); white-space: pre-line; margin-top: 4px;">{step.sub}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>
+
+<style>
+  @media (max-width: 767px) {
+    #flow-container { display: none !important; }
+    #flow-mobile    { display: flex !important; }
+  }
+</style>
+
+<script>
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const particle = document.getElementById('rag-particle') as HTMLElement | null;
+  const flowContainer = document.getElementById('flow-container');
+  const stepEls = document.querySelectorAll('.flow-step') as NodeListOf<HTMLElement>;
+
+  if (!prefersReduced && particle && flowContainer && stepEls.length === 5) {
+
+    let currentStep = 0;
+    let animTimer: ReturnType<typeof setTimeout>;
+    let started = false;
+
+    function getStepCenter(el: HTMLElement): number {
+      const containerRect = flowContainer!.getBoundingClientRect();
+      const stepRect = el.getBoundingClientRect();
+      return stepRect.left - containerRect.left + stepRect.width / 2 - 4; // 4 = half particle width
+    }
+
+    function highlightStep(index: number) {
+      stepEls.forEach((el, i) => {
+        el.style.borderColor = i === index ? 'var(--accent)' : 'var(--border)';
+      });
+      // Positionne la particule au centre de la card
+      const left = getStepCenter(stepEls[index]);
+      particle!.style.left = left + 'px';
+      particle!.style.opacity = '1';
+    }
+
+    function nextStep() {
+      highlightStep(currentStep);
+      currentStep = (currentStep + 1) % 5;
+      // Pause 1s sur chaque step, transition 200ms incluse dans CSS
+      animTimer = setTimeout(nextStep, 1100);
+    }
+
+    // Démarre l'animation quand le flow entre dans le viewport
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && !started) {
+          started = true;
+          observer.disconnect();
+          // Positionne la particule sur la première step sans attendre
+          particle!.style.left = getStepCenter(stepEls[0]) + 'px';
+          particle!.style.opacity = '1';
+          setTimeout(() => nextStep(), 600);
+        }
+      },
+      { threshold: 0.3 }
+    );
+
+    observer.observe(flowContainer);
+
+    // Pause quand hors viewport pour économiser les ressources
+    const visibilityObserver = new IntersectionObserver(
+      (entries) => {
+        if (!entries[0].isIntersecting) {
+          clearTimeout(animTimer);
+        } else if (started) {
+          nextStep();
+        }
+      },
+      { threshold: 0 }
+    );
+    visibilityObserver.observe(flowContainer);
+  }
+</script>

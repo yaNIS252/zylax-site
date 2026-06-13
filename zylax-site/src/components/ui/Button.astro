@@ -1,0 +1,46 @@
+---
+/**
+ * Button.astro — Bouton réutilisable, 3 variants (primary / secondary / ghost).
+ * Utilise un <a> si href est fourni, sinon un <button>.
+ */
+export interface Props {
+  variant?: 'primary' | 'secondary' | 'ghost';
+  href?: string;
+  target?: string;
+  rel?: string;
+  type?: 'button' | 'submit' | 'reset';
+  class?: string;
+  [key: string]: unknown;
+}
+
+const {
+  variant = 'primary',
+  href,
+  target,
+  rel,
+  type = 'button',
+  class: className = '',
+  ...rest
+} = Astro.props;
+
+const baseClasses =
+  'inline-flex items-center gap-2 px-6 py-3.5 text-sm font-medium transition-all duration-150 cursor-pointer select-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white rounded-[6px] active:scale-[0.98]';
+
+const variantClasses = {
+  primary:   'bg-white text-black hover:bg-neutral-200',
+  secondary: 'bg-transparent border border-[var(--border)] text-white hover:border-[var(--border-strong)]',
+  ghost:     'bg-transparent text-[var(--text-secondary)] hover:text-white',
+};
+
+const classes = [baseClasses, variantClasses[variant], className].join(' ');
+---
+
+{href ? (
+  <a href={href} target={target} rel={rel} class={classes} {...rest}>
+    <slot />
+  </a>
+) : (
+  <button type={type} class={classes} {...rest}>
+    <slot />
+  </button>
+)}

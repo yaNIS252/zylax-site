@@ -1,0 +1,26 @@
+---
+/**
+ * Logo.astro — Logo Zylax (monogramme Z chrome, PNG transparent).
+ *
+ * Props :
+ *   height  : hauteur en px (défaut 32). La largeur suit le ratio carré.
+ *   class   : classes CSS additionnelles
+ */
+export interface Props {
+  height?: number;
+  class?: string;
+}
+
+const { height = 32, class: className = '' } = Astro.props;
+---
+
+<img
+  src="/logo.png"
+  alt="Zylax"
+  width={height}
+  height={height}
+  class={className}
+  loading="eager"
+  decoding="async"
+  style={`height: ${height}px; width: auto;`}
+/>
