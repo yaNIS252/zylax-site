@@ -1,0 +1,109 @@
+---
+/**
+ * FAQ.astro — Foire aux questions sous forme d'accordéon
+ * Utilise les éléments natifs <details>/<summary> pour l'accessibilité
+ */
+
+const faqItems = [
+  {
+    question: "Qu'est-ce que Zylax et comment ça fonctionne ?",
+    answer: "Zylax est un moteur d'intelligence artificielle qui lit votre documentation technique et automatise les réponses aux tickets de support répétitifs. Il s'intègre à Zendesk ou Intercom via un webhook, effectue une recherche vectorielle dans votre connaissance, génère une réponse ancrée dans des sources réelles, puis décide de l'action à entreprendre selon un score de confiance."
+  },
+  {
+    question: "Dois-je changer mon outil de support actuel ?",
+    answer: "Non. Zylax se connecte à vos outils existants (Zendesk, Intercom, ou toute plateforme supportant les webhooks) et fonctionne en tant que couche d'intelligence supplémentaire. Vos agents continuent d'utiliser leur interface habituelle."
+  },
+  {
+    question: "Où sont hébergées mes données ?",
+    answer: "Toutes les données sont hébergées dans des centres de données certifiés en France et dans l'Union Européenne. Aucun transfert de données hors de l'UE n'est effectué, garantissant conformité au RGPD."
+  },
+  {
+    question: "Quel est le temps de mise en place ?",
+    answer: "Le processus d'onboarding prend généralement 5 jours ouvrés : configuration des connecteurs, indexing de votre documentation, formation de votre équipe et mise en production progressive."
+  },
+  {
+    question: "Y a-t-il une limite au nombre de tickets que je peux traiter ?",
+    answer: "Non. Le forfait unique de 300€/mois inclut un volume illimité de tickets traités, sans frais supplémentaires ni seuils cachés."
+  },
+  {
+    question: "Comment Zylax garantit-elle la qualité des réponses ?",
+    answer: "Chaque réponse est générée avec un score de confiance. Selon ce score, le système choisit entre : réponse automatique directe (score > 0.75), suggestion à l'agent avec sources (0.5–0.75), ou escalade silencieuse vers un agent humain (< 0.5). Aucune réponse incorrecte n'est jamais envoyée au client."
+  },
+  {
+    question: "Puis-je personnaliser les règles de routing ?",
+    answer: "Oui. Les seuils de confiance et les actions associées sont entièrement configurables lors de l'onboarding et peuvent être ajustés par la suite pour s'adapter à vos besoins métier spécifiques."
+  },
+  {
+    question: "Quel niveau de support technique est inclus ?",
+    answer: "Le support technique est inclus dans le forfait : assistance pour l'installation, résolution d'incidents, et évolutions régulières du produit. Nous proposons également un suivi proactif et des revues de performance périodiques."
+  }
+];
+---
+
+<section id="faq" class="section" style="border-top: 1px solid var(--border);">
+  <div class="container">
+
+    <p class="eyebrow reveal">FOIRE AUX QUESTIONS</p>
+
+    <h2
+      class="heading-display reveal"
+      style="font-size: clamp(36px, 5vw, 64px); line-height: 1.05; margin-bottom: 24px; margin-top: 16px; max-width: 720px;"
+    >
+      Questions fréquentes
+    </h2>
+
+    {/* Accordion */}
+    <div class="reveal" style="margin-top: 32px; max-width: 720px;">
+      {faqItems.map(({question, answer}, index) => (
+        <details
+          key={index}
+          class="reveal"
+          style="border: 1px solid var(--border); border-radius: 4px; margin-bottom: 8px;"
+        >
+          <summary
+            style="padding: 16px 24px; font-weight: 500; cursor: pointer;
+                   list-style: none; /* removes default arrow */"
+          >
+            {question}
+            {/* Optional icon */}
+            <span style="float: right; opacity: 0.6;">▾</span>
+          </summary>
+          <p style="padding: 0 24px 16px; color: var(--text-secondary); line-height: 1.7;">
+            {answer}
+          </p>
+        </details>
+      ))}
+    </div>
+
+  </div>
+</section>
+
+<style>
+  /* Style the summary marker */
+  details > summary::-webkit-details-marker { display: none; }
+  details[open] > summary {
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 0;
+    padding-bottom: 16px;
+  }
+  /* Optional: reveal‑stagger if you want a cascade */
+  .reveal-stagger > *:nth-child(1) { transition-delay: 0ms; }
+  .reveal-stagger > *:nth-child(2) { transition-delay: 100ms; }
+  .reveal-stagger > *:nth-child(3) { transition-delay: 200ms; }
+</style>
+
+<script>
+  // Accordion behavior: close others when one opens
+  document.addEventListener('astro:after-swap', () => {
+    const details = document.querySelectorAll('#faq details');
+    details.forEach(detail => {
+      detail.addEventListener('toggle', () => {
+        if (detail.open) {
+          details.forEach(d => {
+            if (d !== detail && d.open) d.open = false;
+          });
+        }
+      });
+    });
+  });
+</script>

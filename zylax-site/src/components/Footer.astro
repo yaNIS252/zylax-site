@@ -1,0 +1,36 @@
+---
+/**
+ * Footer.astro — Pied de page du site
+ * Contient le logo, une description, des liens de navigation et le copyright
+ */
+import Logo from './Logo.astro';
+---
+
+<footer style="border-top: 1px solid var(--border);">
+  <div class="container" style="display: flex; flex-direction: column; gap: 32px; text-align: center; padding-block: 32px;">
+    {/* Logo + description */}
+    <div style="display: flex; flex-direction: column; gap: 12px; align-items: center;">
+      <a href="/" aria-label="Zylax homepage">
+        <Logo height={32} />
+      </a>
+      <p class="reveal" style="font-size: 14px; color: var(--text-muted); max-width: 360px; line-height: 1.6;">
+        Automatisation du support client SaaS B2B par RAG — hébergement France, RGPD natif.
+      </p>
+    </div>
+
+    {/* Navigation links */}
+    <div class="reveal" style="display: flex; flex-wrap: wrap; gap: 16px; justify-content: center;">
+      <a href="/#hero" class="link-underline">Accueil</a>
+      <a href="/#problem" class="link-underline">Problème</a>
+      <a href="/#how" class="link-underline">Fonctionnement</a>
+      <a href="/#faq" class="link-underline">FAQ</a>
+      <a href="/privacy" class="link-underline">Confidentialité</a>
+      <a href="/terms" class="link-underline">Conditions</a>
+    </div>
+
+    {/* Copyright */}
+    <div class="reveal" style="font-size: 12px; color: var(--text-muted);">
+      © {new Date().getFullYear()} Zylax. Tous droits réservés.
+    </div>
+  </div>
+</footer>

@@ -1,40 +1,30 @@
 ---
-/**
- * Pricing.astro — Grille tarifaire transparente
- * Présente le forfait unique et ses inclusions
- */
+import Button from './ui/Button.astro';
 
-const features = [
-  { icon: '🇪🇺', label: 'Hébergement européen (France/UE)', description: 'Données toujours dans l\'espace juridique européen, conformité RGPD intégrée' },
-  { icon: '📊', label: 'Volume illimité de tickets', description: 'Pas de frais supplémentaires selon le nombre de tickets traités' },
-  { icon: '👥', label: 'Équipes illimitées', description: 'Ajoutez autant d\'agents et de départements que nécessaire' },
-  { icon: '⚙️', label: 'Personnalisation avancée', description: 'Configuration du routing, seuils personnalisables, règles métier' },
-  { icon: '🔄', label: 'Mises à jour continues', description: 'Améliorations régulières du moteur IA et des connecteurs' },
-  { icon: '🛡️', label: 'Support technique inclus', description: 'Assistance dédiée pour l\'onboarding et le fonctionnement quotidien' },
-  { icon: '🔌', label: 'Connecteurs prémium', description: 'Intégrations natives Zendesk, Intercom, et API webhook personnalisée' },
-  { icon: '📈', label: 'Analytics & Reporting', description: 'Tableau de bord des économies générées et performance du système' }
-];
-
-const faq = [
+const plans = [
   {
-    question: 'Y a-t-il des frais d\'installation ou de mise en place ?',
-    answer: 'Non, le forfait de 300€/mois inclus l\'installation complète, la configuration initiale et la formation de votre équipe.'
+    name: 'Starter',
+    monthly: 490,
+    install: 249,
+    annual: 420,
+    recommended: false,
+    stripeMonthly: 'https://buy.stripe.com/4gMdRacV21jH2dL6y93VC00'
   },
   {
-    question: 'Le prix change-t-il si mon volume de tickets augmente ?',
-    answer: 'Absolument pas. Le forfait reste fixe quel que soit le nombre de tickets traités, même si votre volume double ou triple.'
+    name: 'Pro',
+    monthly: 790,
+    install: 490,
+    annual: 670,
+    recommended: true,
+    stripeMonthly: 'https://buy.stripe.com/4gM5kEg7ebYlaKh4q13VC03'
   },
   {
-    question: 'Y a-t-il un engagement minimum ou une durée de contrat ?',
-    answer: 'Non, vous pouvez annuler à tout moment avec un préavis de 30 jours. Nous croyons que notre valeur doit parler d\'elle-même chaque mois.'
-  },
-  {
-    question: 'Que se passe-t-il si je dépasse les limites raisonnables d\'usage ?',
-    answer: 'Nous travaillons avec nos clients pour optimiser l\'usage. En cas de besoins exceptionnels, nous discutons d\'une solution sur mesure plutôt que d\'appliquer des pénalités.'
-  },
-  {
-    question: 'Le prix inclut-il la formation et l\'accompagnement ?',
-    answer: 'Oui, l\'onboarding complet est inclus : configuration technique, formation des administrators et ateliers d\'adoption pour les équipes support.'
+    name: 'Premium',
+    monthly: 1190,
+    install: 700,
+    annual: 990,
+    recommended: false,
+    stripeMonthly: 'https://buy.stripe.com/6oU3cw4owd2pdWt8Gh3VC05'
   }
 ];
 ---
@@ -48,104 +38,238 @@ const faq = [
       class="heading-display reveal"
       style="font-size: clamp(36px, 5vw, 64px); line-height: 1.05; margin-bottom: 24px; margin-top: 16px; max-width: 600px;"
     >
-      Un forfait unique pour une prévisibilité totale
+      Choisissez le plan adapté à votre échelle
     </h2>
 
     <p
       class="reveal"
-      style="font-size: 18px; line-height: 1.7; color: var(--text-secondary); max-width: 500px; margin-bottom: 48px;"
+      style="font-size: 18px; line-height: 1.7; color: var(--text-secondary);
+             max-width: 500px; margin: 0 auto 24px;"
     >
-      Chez Zylax, nous croyons en la simplicité et la transparence. Pas de frais cachés, pas de surprises, pas de complexité inutile.
-      Un seul forfait qui inclut tout ce dont vous avez besoin pour automatiser votre support client.
+      Des forfaits clairs, sans surprise. Optez pour le mensuel sans engagement ou l'engagement 12 mois pour économiser 2 mois.
     </p>
 
-    {/* Price Card */}
-    <div class="reveal" style="border: 1px solid var(--border); border-radius: 12px; overflow: hidden; max-width: 400px;">
-      {/* Header */}
-      <div style="background: var(--bg-elevated); border-bottom: 1px solid var(--border); padding: 24px; text-align: center;">
-        <h3 style="font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 600; color: var(--text); margin: 0 0 8px 0;">
-          Forfait Unique
-        </h3>
-        <p style="font-size: 16px; color: var(--text-secondary); margin: 0;">
-          Tout inclus · Engagement mensuel
-        </p>
-      </div>
-
-      {/* Price */}
-      <div style="background: var(--bg); padding: 32px 24px; text-align: center;">
-        <div style="font-family: 'Syne', sans-serif; font-size: 48px; font-weight: 700; color: var(--text); line-height: 1;">
-          300
-        </div>
-        <div style="font-size: 18px; color: var(--text-secondary); margin-top: 8px;">
-          € / mois
-        </div>
-      </div>
-
-      {/* Footer */}
-      <div style="background: var(--bg-elevated); border-top: 1px solid var(--border); padding: 24px; text-align: center;">
-        <p style="font-size: 14px; color: var(--text-muted); margin: 0;">
-          Annulable à tout moment · Aucun frais d'installation
-        </p>
-      </div>
+    {/* Toggle mensuel / 12 mois */}
+    <div class="reveal" id="pricing-toggle" style="display: flex; justify-content: center; gap: 16px; margin-bottom: 24px;">
+      <button
+        id="toggle-monthly"
+        class="toggle-btn"
+        style="flex: 1; padding: 12px 24px; font-size: 15px; font-weight: 500; border: 1px solid var(--border); background: transparent; color: var(--text-secondary); cursor: pointer; transition: all 150ms ease;"
+      >
+        Mensuel
+      </button>
+      <button
+        id="toggle-annual"
+        class="toggle-btn"
+        style="flex: 1; padding: 12px 24px; font-size: 15px; font-weight: 500; border: 1px solid var(--border); background: transparent; color: var(--text-secondary); cursor: pointer; transition: all 150ms ease;"
+      >
+        Engagement 12 mois
+      </button>
     </div>
 
-    {/* Features List */}
-    <div class="reveal" style="display: grid; gap: 16px; margin-top: 48px;">
-      {features.map((feature, i) => (
-        <div key={i} style="display: flex; align-items: flex-start; gap: 12px; padding: 16px 0; border-top: 1px solid var(--border);">
-          <div style="flex-shrink: 0; font-size: 20px;">
-            {feature.icon}
-          </div>
-          <div>
-            <h4 style="font-family: 'Syne', sans-serif; font-size: 16px; font-weight: 600; color: var(--text); margin: 0 0 4px 0;">
-              {feature.label}
-            </h4>
-            <p style="font-size: 14px; color: var(--text-secondary); line-height: 1.5; margin: 0;">
-              {feature.description}
+    {/* Cards */}
+    <div class="reveal" style="display: grid; gap: 24px;">
+      {plans.map((plan) => (
+        <div
+          key={plan.name}
+          class="pricing-card"
+          style="
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+            background: var(--bg);
+            display: flex;
+            flex-direction: column;
+          "
+        >
+          {/* Badge recommandé */}
+          {plan.recommended && (
+            <span style="
+              align-self: flex-start;
+              margin: 12px;
+              padding: 2px 8px;
+              font-size: 11px;
+              font-weight: 500;
+              text-transform: uppercase;
+              letter-spacing: 0.1em;
+              border: 1px solid var(--border);
+              color: var(--text);
+              background: rgba(255,255,255,0.05);
+            ">
+              RECOMMANDÉ
+            </span>
+          )}
+
+          <div style="flex: 1; display: flex; flex-direction: column; padding: 24px;">
+            <h3 style="
+              font-family: 'Syne', sans-serif;
+              font-size: 20px;
+              font-weight: 600;
+              color: var(--text);
+              margin: 0 0 12px 0;
+            ">
+              {plan.name}
+            </h3>
+
+            {/* Prix */}
+            <div style="
+              display: flex;
+              flex-direction: column;
+              align-items: flex-start;
+              margin-bottom: 16px;
+            ">
+              <span class="price-annual" style="
+                font-family: 'Syne', sans-serif;
+                font-size: 28px;
+                font-weight: 700;
+                color: var(--text);
+                display: block;
+              ">
+                {plan.annual} €
+              </span>
+              <span class="price-monthly" style="
+                font-family: 'Syne', sans-serif;
+                font-size: 28px;
+                font-weight: 700;
+                color: var(--text);
+                display: none;
+              ">
+                {plan.monthly} €
+              </span>
+              <span style="
+                font-size: 14px;
+                color: var(--text-secondary);
+                margin-top: 4px;
+                display: block;
+              ">/mois</span>
+            </div>
+
+            {/* Frais d'installation */}
+            <div class="install-fee" style="
+              font-size: 14px;
+              color: var(--text-secondary);
+              margin-bottom: 16px;
+              display: none;
+            ">
+              + {plan.install} € frais d'installation uniques
+            </div>
+
+            {/* Note économies */}
+            <p style="
+              font-size: 14px;
+              color: var(--text-secondary);
+              font-style: italic;
+              margin-bottom: 20px;
+              display: block;
+            ">
+              Économisez 2 mois
             </p>
+
+            {/* CTA */}
+            <Button
+              variant="primary"
+              href="#" /* placeholder, will be set via JS */
+              style="align-self: flex-start; width: fit-content;"
+            >
+              Choisir ce plan
+            </Button>
           </div>
         </div>
       ))}
     </div>
 
-    {/* FAQ Accordion */}
-    <div class="reveal" style="margin-top: 48px; border-top: 1px solid var(--border);">
-      <h3 style="font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 600; color: var(--text); margin: 0 0 16px 0; padding: 24px 0; border-bottom: 1px solid var(--border);">
-        Questions fréquentes
-      </h3>
-
-      {faq.map((item, i) => (
-        <div key={i} style="border-bottom: 1px solid var(--border);">
-          <div style="padding: 20px 24px; cursor: pointer; display: flex; justify-content: space-between; align-items: center;"
-               onmouseover="this.style.backgroundColor='var(--bg-elevated)'"
-               onmouseout="this.style.backgroundColor='transparent'"
-          >
-            <div>
-              <p style="font-size: 15px; font-weight: 500; color: var(--text); margin: 0;">
-                {item.question}
-              </p>
-            </div>
-            <div style="font-size: 18px; color: var(--text-muted); transition: transform 200ms ease;">
-              {/* This would normally be interactive, but for simplicity we'll show it expanded */}
-              ▼
-            </div>
-          </div>
-          <div style="padding: 0 24px 20px 24px; max-height: 0; overflow: hidden; transition: max-height 300ms ease;">
-            <p style="font-size: 14px; color: var(--text-secondary); line-height: 1.6; margin: 0;">
-              {item.answer}
-            </p>
-          </div>
-        </div>
-      ))}
-    </div>
-
-    {/* CTA */}
-    <div class="reveal" style="margin-top: 32px; text-align: center;">
-      <p style="font-size: 18px; color: var(--text-secondary); max-width: 500px; margin: 0 auto 24px;">
-        Prêt à simplifier votre facturation tout en augmentant votre efficacité ?
-      </p>
-      {/* Button would go here - but we'll add it in index.astro when we import this component */}
+    {/* Mention légale sous les cards */}
+    <p
+      class="reveal"
+      style="margin-top: 24px; font-size: 14px; color: var(--text-muted); line-height: 1.6;"
+    >
+      TVA non applicable, art. 293 B du CGI. Résiliation mensuel : préavis 30 jours. Engagement 12 mois : non résiliable avant terme.
     </p>
 
   </div>
 </section>
+
+<style>
+  /* Toggle button active state */
+  .toggle-btn.active {
+    background: var(--bg-elevated);
+    color: var(--text);
+    border-color: var(--border);
+  }
+
+  /* Pricing card hover effect */
+  .pricing-card:hover {
+    border-color: var(--accent);
+  }
+
+  /* Toggle views: default shows annual (12 mois) */
+  .price-annual { display: block; }
+  .price-monthly { display: none; }
+  .install-fee { display: none; }
+
+  /* When monthly toggle active */
+  .toggle-monthly .price-annual { display: none; }
+  .toggle-monthly .price-monthly { display: block; }
+  .toggle-monthly .install-fee { display: block; }
+</style>
+
+<script>
+  // Get toggle buttons and container
+  const monthlyBtn = document.getElementById('toggle-monthly');
+  const annualBtn = document.getElementById('toggle-annual');
+  const pricingRoot = document.getElementById('pricing'); // section root
+
+  // Set initial view: annual (12 mois) active
+  annualBtn.classList.add('active');
+  // Initialize annual view href/text
+  setView(false);
+
+  // Function to switch view
+  function setView(showMonthly) {
+    if (showMonthly) {
+      pricingRoot.classList.add('toggle-monthly');
+      monthlyBtn.classList.add('active');
+      annualBtn.classList.remove('active');
+      // Update CTA hrefs and text
+      document.querySelectorAll('.pricing-card').forEach((card, index) => {
+        const plan = plans[index];
+        const btn = card.querySelector('button'); // Button component renders as <button>
+        if (btn) {
+          btn.href = plan.stripeMonthly;
+          btn.textContent = 'Souscrire →';
+        }
+      });
+    } else {
+      pricingRoot.classList.remove('toggle-monthly');
+      monthlyBtn.classList.remove('active');
+      annualBtn.classList.add('active');
+      // Update CTA hrefs and text for annual
+      document.querySelectorAll('.pricing-card').forEach((card, index) => {
+        const plan = plans[index];
+        const btn = card.querySelector('button');
+        if (btn) {
+          btn.href = '#contact';
+          btn.textContent = 'Nous contacter →';
+        }
+      });
+    }
+  }
+
+  // Event listeners
+  monthlyBtn.addEventListener('click', () => setView(true));
+  annualBtn.addEventListener('click', () => setView(false));
+
+  // Optional: keyboard accessibility
+  monthlyBtn.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      setView(true);
+    }
+  });
+  annualBtn.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      setView(false);
+    }
+  });
+</script>
