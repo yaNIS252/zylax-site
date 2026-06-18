@@ -1,54 +1,8 @@
 ---
 /**
- * Souverainete.astro — Hébergement européen et contrôle des données
- * Met en avant la souveraineté technologique et la conformité RGPD de Zylax
+ * Souverainete.astro — Hébergement européen et contrôle des données (version réduite)
+ * Met en avant les trois piliers : infrastructure UE, LLM souverain, RGPD natif
  */
-
-const sovereigntyPoints = [
-  {
-    title: 'Données Toujours en UE',
-    description: 'Vos données de support, documentation et interactions restent dans des data centers certifiés en France et en UE.',
-    icon: '📍',
-    detail: 'Aucun transfert de données hors de l\'Union Européenne, conformité au chapitre V du RGPD'
-  },
-  {
-    title: 'LLM Sovereign Européen',
-    description: 'Notre moteur IA utilise des modèles développés et hébergés en Europe, indépendants des fournisseurs US.',
-    icon: '🤖',
-    detail: 'Modèles Mistral et autres LLM européens, entraînement et inférence réalisés dans l\'espace juridique européen'
-  },
-  {
-    title: 'Contrôle Total & Accès',
-    description: 'Vous gardez la propriété intellectuelle complète sur vos données et pouvez les récupérer à tout moment.',
-    icon: '🔑',
-    detail: 'Export des données en format standard, accès direct aux logs et métriques, possibilité d\'audit externe'
-  },
-  {
-    title: 'RGPD Natif & Conformité',
-    description: 'Conçu dès l\'origine pour respecter le RGPD, avec protection des données intégrée dans l\'architecture.',
-    icon: '🛡️',
-    detail: 'DPO dédié, registre des traitements, droit à l\'oubli et portabilité réellement implémentés'
-  },
-  {
-    title: 'Sécurité de Niveau Entreprise',
-    description: 'Standards de sécurité éprouvés pour protéger vos informations sensibles et votre propriété intellectuelle.',
-    icon: '⚡',
-    detail: 'ISO 27001, chiffrement AES-256, tests d\'intrusion réguliers, SOC 2 Type II en cours'
-  },
-  {
-    title: 'Indépendance Technologique',
-    description: 'Pas de dépendance critique à des fournisseurs américains qui pourraient modifier leurs conditions unilatéralement.',
-    icon: '🇪🇺',
-    detail: 'Chaîne d\'approvisionnement technologique entièrement européenne, reduced geopolitical risk'
-  }
-];
-
-const complianceBadges = [
-  { label: 'RGPD Compliant', color: 'var(--score-high)' },
-  { label: 'ISO 27001', color: 'var(--score-mid)' },
-  { label: 'Données UE Uniquement', color: 'var(--score-high)' },
-  { label: 'LLM Européen', color: 'var(--score-high)' }
-];
 ---
 
 <section id="souverainete" class="section" style="border-top: 1px solid var(--border);">
@@ -67,43 +21,64 @@ const complianceBadges = [
       class="reveal"
       style="font-size: 18px; line-height: 1.7; color: var(--text-secondary); max-width: 700px; margin-bottom: 48px;"
     >
-      À l\'ère des géants technologiques américains et des inquiétudes légitimes concernant la souveraineté des données,
-      Zylax représente une alternative européenne sérieuse. Nous avons conçu notre service dès l\'origine pour garantir
-      que vos informations sensibles ne quittent jamais l\'espace juridique européen tout en restant conformes au RGPD.
+      Zylax est conçu pour garantir que vos données ne quittent jamais l’Union européenne, en utilisant des modèles d’IA européens et en respectant le RGPD de manière native.
     </p>
 
-    {/* Sovereignty Points */}
-    <div class="reveal" style="display: grid; gap: 24px;">
-      {sovereigntyPoints.map((point, i) => (
-        <div key={i} style="border: 1px solid var(--border); border-radius: 8px; overflow: hidden; display: flex;">
-          {/* Icon */}
-          <div style="flex-shrink: 0; width: 60px; height: 60px; background: var(--bg-elevated); display: flex; align-items: center; justify-content: center;">
-            <span style="font-size: 24px;">{point.icon}</span>
-          </div>
-
-          {/* Content */}
-          <div style="flex: 1; padding: 20px 24px; display: flex; flex-direction: column; justify-content: center;">
-            <h3 style="font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 600; color: var(--text); margin: 0 0 8px 0;">
-              {point.title}
-            </h3>
-            <p style="font-size: 15px; color: var(--text-secondary); line-height: 1.6; margin: 0 0 12px 0;">
-              {point.description}
-            </p>
-            <p style="font-size: 13px; color: var(--text-muted); font-style: italic; margin: 0;">
-              {point.detail}
-            </p>
-          </div>
+    {/* Sovereignty Points - exactly 3 cards */}
+    <div class="reveal" style="display: grid; gap: 24px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));">
+      {/* Card 1 : Infrastructure UE */}
+      <div key="1" style="border: 1px solid var(--border); border-radius: 8px; overflow: hidden; display: flex;">
+        <div style="flex-shrink: 0; width: 60px; height: 60px; background: var(--bg-elevated); display: flex; align-items: center; justify-content: center;">
+          <span style="font-size: 24px;">📍</span>
         </div>
-      ))}
-    </div>
+        <div style="flex: 1; padding: 20px 24px; display: flex; flex-direction: column; justify-content: center;">
+          <h3 style="font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 600; color: var(--text); margin: 0 0 8px 0;">
+            Données Toujours en UE
+          </h3>
+          <p style="font-size: 15px; color: var(--text-secondary); line-height: 1.6; margin: 0 0 12px 0;">
+            Vos données de support, documentation et interactions restent dans des data centers certifiés en France et en UE.
+          </p>
+          <p style="font-size: 13px; color: var(--text-muted); font-style: italic; margin: 0;">
+            Aucun transfert de données hors de l’Union Européenne, conformité au chapitre V du RGPD
+          </p>
+        </div>
+      </div>
 
-    {/* Compliance Badges */}
-    <div class="reveal" style="display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px;">
-      {complianceBadges.map((badge, i) => (
-        <span key={i} style="display: inline-block; padding: 6px 12px; font-size: 13px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.08em; border: 1px solid {badge.color}; color: {badge.color}; background: rgba(255,255,255,0.03); border-radius: 4px;">
-          {badge.label}
-        </span>
-      ))}
+      {/* Card 2 : LLM souverain (Mistral) */}
+      <div key="2" style="border: 1px solid var(--border); border-radius: 8px; overflow: hidden; display: flex;">
+        <div style="flex-shrink: 0; width: 60px; height: 60px; background: var(--bg-elevated); display: flex; align-items: center; justify-content: center;">
+          <span style="font-size: 24px;">🤖</span>
+        </div>
+        <div style="flex: 1; padding: 20px 24px; display: flex; flex-direction: column; justify-content: center;">
+          <h3 style="font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 600; color: var(--text); margin: 0 0 8px 0;">
+            LLM Sovereign Européen
+          </h3>
+          <p style="font-size: 15px; color: var(--text-secondary); line-height: 1.6; margin: 0 0 12px 0;">
+            Notre moteur IA utilise des modèles développés et hébergés en Europe, indépendants des fournisseurs US.
+          </p>
+          <p style="font-size: 13px; color: var(--text-muted); font-style: italic; margin: 0;">
+            Modèles Mistral et autres LLM européens, entraînement et inférence réalisés dans l’espace juridique européen
+          </p>
+        </div>
+      </div>
+
+      {/* Card 3 : RGPD natif */}
+      <div key="3" style="border: 1px solid var(--border); border-radius: 8px; overflow: hidden; display: flex;">
+        <div style="flex-shrink: 0; width: 60px; height: 60px; background: var(--bg-elevated); display: flex; align-items: center; justify-content: center;">
+          <span style="font-size: 24px;">🛡️</span>
+        </div>
+        <div style="flex: 1; padding: 20px 24px; display: flex; flex-direction: column; justify-content: center;">
+          <h3 style="font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 600; color: var(--text); margin: 0 0 8px 0;">
+            RGPD Natif & Conformité
+          </h3>
+          <p style="font-size: 15px; color: var(--text-secondary); line-height: 1.6; margin: 0 0 12px 0;">
+            Conçu dès l’origine pour respecter le RGPD, avec protection des données intégrée dans l’architecture.
+          </p>
+          <p style="font-size: 13px; color: var(--text-muted); font-style: italic; margin: 0;">
+            DPO dédié, registre des traitements, droit à l’oubli et portabilité réellement implémentés
+          </p>
+        </div>
+      </div>
     </div>
 
     {/* CTA */}
@@ -112,7 +87,7 @@ const complianceBadges = [
       style="margin-top: 32px; font-size: 18px; font-weight: 500; color: var(--text); max-width: 500px; line-height: 1.5;
              padding-left: 20px; border-left: 2px solid var(--border-strong);"
     >
-      La souveraineté des données n\'est pas une option chez Zylax — c\'est la fondation de notre service. <span style="color: var(--text-secondary)">Discutons de vos exigences spécifiques en matière de conformité et de contrôle.</span>
+      La souveraineté des données n’est pas une option chez Zylax — c’est la fondation de notre service. <span style="color: var(--text-secondary)">Discutons de vos exigences spécifiques en matière de conformité et de contrôle.</span>
     </p>
 
   </div>

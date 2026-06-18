@@ -1,0 +1,20 @@
+
+> zylax-site@1.0.0 dev
+> astro dev
+
+▶ Astro collects anonymous usage data.
+  This information helps us improve Astro.
+  Run "astro telemetry disable" to opt-out.
+  https://astro.build/telemetry
+
+03:53:11 [types] Generated 1ms
+
+ astro  v4.16.19 ready in 601 ms
+
+┃ Local    http://localhost:4321/
+┃ Network  use --host to expose
+
+03:53:11 watching for file changes...
+04:06:09 [WARN] Unsupported file type C:\Users\yanis\Documents\Zylax\zylax-site\src\pages\index.astro.tmp.19208.f75f28c39df0 found. Prefix filename with an underscore (`_`) to ignore.
+01:04:43 [200] / 15ms
+01:04:43 [404] /favicon.svg 2ms

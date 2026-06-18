@@ -1,225 +1,46 @@
 ---
-/**
- * About.astro — À propos de Zylax
- * Présente l'entreprise, l'équipe, la mission et les valeurs
- */
-
-const companyInfo = {
-  name: 'Zylax',
-  tagline: 'Automatisation du support client SaaS B2B par RAG',
-  founded: '2024',
-  location: 'Paris, France',
-  mission: 'Libérer les équipes support technique des tâches répétitives pour qu\'elles puissent se concentrer sur la résolution de problèmes complexes et l\'innovation.',
-  vision: 'Devenir le standard européen de l\'automatisation intelligente du support technique, alliant souveraineté des données et excellence opérationnelle.'
-};
-
-const teamMembers = [
-  {
-    name: 'Yanis',
-    role: 'Fondateur & CTO',
-    description: 'Expert en IA et systèmes distribués avec 10+ ans d\'expérience dans le support technique d\'entreprise.',
-    avatar: '/team/yanis.jpg' // placeholder
-  },
-  {
-    name: 'Équipe Technique',
-    role: 'Ingénieurs IA & DevOps',
-    description: 'Spécialistes en traitement du langage naturel, infrastructure cloud européenne et sécurité des données.',
-    avatar: '/team/tech.jpg' // placeholder
-  },
-  {
-    name: 'Conseillers Client',
-    role: 'Experts en expérience client',
-    description: 'Ancien responsables support et success managers comprenant profondément les défis des équipes techniques.',
-    avatar: '/team/client.jpg' // placeholder
-  }
-];
-
-const values = [
-  {
-    icon: '🇪🇺',
-    label: 'Souveraineté Européenne',
-    description: 'Nous croyons que les données des entreprises européennes méritent une protection et un contrôle exemplaires.'
-  },
-  {
-    icon: '🧠',
-    label: 'Intelligence Augmentée',
-    description: 'Notre IA ne remplace pas l\'expertise humaine — elle la renforce en éliminant le travail répétitif.'
-  },
-  {
-    icon: '🤝',
-    label: 'Partenariat Durable',
-    description: 'Nous réussissons quand nos clients réussissent. Notre modèle d\'affaires est aligné sur votre valeur à long terme.'
-  },
-  {
-    icon: '⚡',
-    label: 'Innovation Responsable',
-    description: 'Nous poursuivons l\'excellence technique tout en minimisant notre empreinte environnementale et sociale.'
-  },
-  {
-    icon: '🔒',
-    label: 'Transparence Totale',
-    description: 'Pas de boîtes noires : vous comprenez toujours comment notre système prend ses décisions.'
-  },
-  {
-    icon: '📈',
-    label: 'Impact Mesurable',
-    description: 'Chaque amélioration est quantifiée en termes de temps gagné, de coûts réduits et de satisfaction client augmentée.'
-  }
-];
-
-const milestones = [
-  { year: 'Q1 2024', event: 'Idée initiale et validation du problème auprès de 30 entreprises SaaS' },
-  { year: 'Q2 2024', event: 'Développement du prototype technique et premiers tests pilota' },
-  { year: 'Q3 2024', event: 'Lancement de la version beta avec 5 clients pionniers' },
-  { year: 'Q4 2024', event: 'Optimisation du moteur RAG et atteinte de 70% d\'automatisation des tickets L1' },
-  { year: 'Q1 2025', event: 'Mise en disponibilité générale et début de l\'accélération commerciale' }
-];
+import Button from './ui/Button.astro';
 ---
 
 <section id="about" class="section" style="border-top: 1px solid var(--border);">
   <div class="container">
 
-    <p class="eyebrow reveal">À PROPOS DE ZYLAX</p>
+    <p class="eyebrow reveal">LE FONDATEUR</p>
 
     <h2
       class="heading-display reveal"
-      style="font-size: clamp(36px, 5vw, 64px); line-height: 1.05; margin-bottom: 32px; margin-top: 16px; max-width: 720px;"
+      style="font-size: clamp(36px, 5vw, 64px); line-height: 1.05; margin-bottom: 24px; margin-top: 16px; max-width: 680px;"
     >
-      Libérer le potentiel des équipes support technique
+      Construit par un développeur. Pas par un département.
     </h2>
 
     <p
       class="reveal"
-      style="font-size: 18px; line-height: 1.7; color: var(--text-secondary); max-width: 700px; margin-bottom: 48px;"
+      style="font-size: 18px; line-height: 1.7; color: var(--text-secondary); max-width: 680px; margin: 0 auto 32px;"
     >
-      Zylax est né d\'une constatation simple : dans les entreprises SaaS B2B en croissance, les équipes support technique passent
-      jusqu\'à 70% de leur temps à répondre aux mêmes questions répétitives, alors que la documentation existe déjà.
-      Nous avons donc créé un moteur d\'intelligence artificielle spécialisé qui lit votre documentation technique et
-      automatiser ces réponses, tout en garantissant la souveraineté des données et la conformité RGPD.
+      Zylax est un projet solo. Je m'appelle Yanis Le Port, j'ai 20 ans,
+      je suis développeur basé en Île-de-France.
+
+      J'ai construit cette stack de zéro : le pipeline RAG (LlamaIndex + Qdrant + Mistral),
+      l'API FastAPI, les intégrations Zendesk et Intercom via n8n, le déploiement Railway.
+      Pas d'équipe commerciale entre vous et le code. Pas de support externalisé.
+      Vous parlez directement à la personne qui a écrit le système.
+
+      Ce que ça change concrètement : quand quelque chose ne va pas,
+      je le sais avant vous et je le corrige moi-même.
+      Quand vous avez besoin d'une customisation, on en parle directement —
+      pas de ticket dans un CRM, pas de réunion de qualification à 3 niveaux.
+
+      Ce que ça ne couvre pas : pas de hotline 24/7, pas de SLA contractuel
+      sur les plans Starter et Pro. Si vous avez besoin d'un SLA,
+      c'est le plan Premium ou on en parle sur le plan Enterprise.
     </p>
 
-    {/* Company Info Card */}
-    <div class="reveal" style="border: 1px solid var(--border); border-radius: 12px; overflow: hidden; margin-bottom: 48px;">
-      <div style="background: var(--bg-elevated); border-bottom: 1px solid var(--border); padding: 24px;">
-        <div style="display: flex; align-items: center; gap: 16px; flex-wrap: wrap;">
-          <div style="font-family: 'Syne', sans-serif; font-size: 24px; font-weight: 700; color: var(--text);">
-            {companyInfo.name}
-          </div>
-          <div style="font-size: 16px; color: var(--text-secondary);">
-            {companyInfo.tagline}
-          </div>
-        </div>
-      </div>
-
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; padding: 24px;">
-        <div>
-          <p style="font-size: 14px; color: var(--text-muted); margin: 0 0 4px 0;">Fondée</p>
-          <p style="font-size: 16px; font-weight: 500; color: var(--text); margin: 0;">{companyInfo.founded}</p>
-        </div>
-        <div>
-          <p style="font-size: 14px; color: var(--text-muted); margin: 0 0 4px 0;">Siège</p>
-          <p style="font-size: 16px; font-weight: 500; color: var(--text); margin: 0;">{companyInfo.location}</p>
-        </div>
-        <div>
-          <p style="font-size: 14px; color: var(--text-muted); margin: 0 0 4px 0;">Mission</p>
-          <p style="font-size: 15px; color: var(--text-secondary); line-height: 1.4; margin: 0;">{companyInfo.mission}</p>
-        </div>
-        <div>
-          <p style="font-size: 14px; color: var(--text-muted); margin: 0 0 4px 0;">Vision</p>
-          <p style="font-size: 15px; color: var(--text-secondary); line-height: 1.4; margin: 0;">{companyInfo.vision}</p>
-        </div>
-      </div>
+    <div class="reveal" style="display: flex; justify-content: center;">
+      <Button variant="secondary" href="mailto:yanis@zylax.fr">
+        Me contacter directement →
+      </Button>
     </div>
-
-    {/* Team Section */}
-    <div class="reveal" style="margin-bottom: 48px;">
-      <h3 style="font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 600; color: var(--text); margin: 0 0 16px 0; padding: 24px 0; border-bottom: 1px solid var(--border);">
-        L\'équipe derrière l\'innovation
-      </h3>
-
-      <div style="display: grid; gap: 24px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));">
-        {teamMembers.map((member, i) => (
-          <div key={i} style="border: 1px solid var(--border); border-radius: 8px; overflow: hidden; display: flex; flex-direction: column;">
-            {/* Avatar placeholder */}
-            <div style="flex-shrink: 0; width: 100%; height: 120px; background: var(--bg-elevated); display: flex; align-items: center; justify-content: center;">
-              <span style="font-size: 48px; color: var(--text-muted);">{member.avatar ? '🖼️' : '👤'}</span>
-            </div>
-
-            <div style="flex: 1; padding: 20px 24px; display: flex; flex-direction: column;">
-              <h4 style="font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 600; color: var(--text); margin: 0 0 8px 0;">
-                {member.name}
-              </h4>
-              <p style="font-size: 15px; color: var(--text-secondary); margin: 0 0 12px 0;">
-                {member.role}
-              </p>
-              <p style="font-size: 14px; color: var(--text-secondary); line-height: 1.6; flex-grow: 1;">
-                {member.description}
-              </p>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-
-    {/* Values Section */}
-    <div class="reveal" style="margin-bottom: 48px;">
-      <h3 style="font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 600; color: var(--text); margin: 0 0 16px 0; padding: 24px 0; border-bottom: 1px solid var(--border);">
-        Nos valeurs fondamentales
-      </h3>
-
-      <div style="display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
-        {values.map((value, i) => (
-          <div key={i} style="text-align: center; padding: 16px; border: 1px solid var(--border); border-radius: 8px;">
-            <div style="font-size: 32px; margin-bottom: 12px;">
-              {value.icon}
-            </div>
-            <h4 style="font-family: 'Syne', sans-serif; font-size: 16px; font-weight: 600; color: var(--text); margin: 0 0 8px 0;">
-              {value.label}
-            </h4>
-            <p style="font-size: 14px; color: var(--text-secondary); line-height: 1.5; margin: 0;">
-              {value.description}
-            </p>
-          </div>
-        ))}
-      </div>
-    </div>
-
-    {/* Milestones Timeline */}
-    <div class="reveal">
-      <h3 style="font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 600; color: var(--text); margin: 0 0 16px 0; padding: 24px 0; border-bottom: 1px solid var(--border);">
-        Notre parcours jusqu\'ici
-      </h3>
-
-      <div style="position: relative; padding: 24px 0;">
-        {/* Timeline line */}
-        <div style="position: absolute; left: 20px; top: 0; bottom: 0; width: 2px; background: var(--border);"></div>
-
-        {milestones.map((milestone, i) => (
-          <div key={i} style="position: relative; padding-left: 48px; margin-bottom: 24px; min-height: 60px;">
-            {/* Timeline dot */}
-            <div style="position: absolute; left: 14px; top: 20px; width: 12px; height: 12px; background: var(--accent); border-radius: 50%;"></div>
-
-            <div>
-              <p style="font-size: 14px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; margin: 0 0 4px 0;">
-                {milestone.year}
-              </p>
-              <p style="font-size: 15px; color: var(--text); line-height: 1.4; margin: 0;">
-                {milestone.event}
-              </p>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-
-    {/* CTA */}
-    <p
-      class="reveal"
-      style="margin-top: 32px; font-size: 18px; font-weight: 500; color: var(--text); max-width: 500px; line-height: 1.5;
-             padding-left: 20px; border-left: 2px solid var(--border-strong);"
-    >
-      Curieux de connaître l\'équipe qui révolutionne le support technique européen ? <span style="color: var(--text-secondary)">Connectons-nous pour échanger sur notre vision et votre défi spécifique.</span>
-    </p>
 
   </div>
 </section>
