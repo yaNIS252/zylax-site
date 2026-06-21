@@ -54,12 +54,11 @@ const stats = [
 
     <!-- H1 -->
     <h1
-      class="heading-display reveal"
+      class="heading-display reveal hero-h1"
       style="font-size: clamp(52px, 8vw, 96px); line-height: 1.0; letter-spacing: -0.025em; font-weight: 800;
              margin-bottom: 28px; margin-top: 16px;"
     >
-      Vos agents support répondent <span class="hero-gradient">70&nbsp;%</span> du temps aux mêmes questions.
-      <span style="color: var(--text-secondary);">On automatise ça en 5 jours.</span>
+      <span class="hero-gradient">70%</span> de vos tickets support, résolus par une IA qui a vraiment lu votre doc.
     </h1>
 
     <!-- Subline -->
@@ -68,8 +67,7 @@ const stats = [
       style="font-size: 18px; line-height: 1.6; color: var(--text-secondary);
              margin-bottom: 40px;"
     >
-      Moteur IA qui lit votre documentation et répond directement aux tickets Zendesk ou Intercom.
-      Hébergement France, RGPD natif, setup en 5 jours.
+      Pas un chatbot scripté. Un agent connecté à votre documentation Zendesk ou Intercom, opérationnel en 5 jours.
     </p>
 
     <!-- CTA group -->
@@ -243,6 +241,12 @@ const stats = [
       font-size: clamp(36px, 10vw, 52px) !important;
     }
   }
+
+.hero-h1 {
+  text-wrap: balance;
+  line-height: 1.15;
+  max-width: 18ch;
+}
 </style>
 
 <script>
