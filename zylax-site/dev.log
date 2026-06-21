@@ -18,3 +18,27 @@
 04:06:09 [WARN] Unsupported file type C:\Users\yanis\Documents\Zylax\zylax-site\src\pages\index.astro.tmp.19208.f75f28c39df0 found. Prefix filename with an underscore (`_`) to ignore.
 01:04:43 [200] / 15ms
 01:04:43 [404] /favicon.svg 2ms
+02:42:42 [watch] /src/components/Hero.astro?astro&type=style&index=0&lang.css
+02:43:17 [watch] src/components/Icp.astro
+02:44:17 [watch] src/components/Icp.astro
+02:45:23 [watch] src/components/Souverainete.astro
+02:47:22 [watch] src/components/Souverainete.astro
+02:47:56 [watch] src/components/Souverainete.astro
+02:49:21 [watch] src/components/Comparatif.astro
+02:56:10 [watch] src/components/Pricing.astro
+02:56:42 [watch] src/components/Pricing.astro
+02:57:00 [WARN] Unsupported file type C:\Users\yanis\Documents\Zylax\zylax-site\src\pages\terms.astro.tmp.19208.225a463f23e6 found. Prefix filename with an underscore (`_`) to ignore.
+02:57:00 [watch] src/pages/terms.astro
+03:07:26 [200] / 15ms
+03:07:26 [404] /favicon.svg 1ms
+03:37:04 [watch] src/components/Pricing.astro
+03:43:40 [watch] src/components/Pricing.astro
+03:47:06 [watch] src/components/Pricing.astro
+03:53:03 [watch] /src/components/Pricing.astro?astro&type=style&index=0&lang.css
+14:57:37 Configuration file updated. Restarting...
+14:57:37 [types] Generated 2ms
+04:07:16 [WARN] Unsupported file type C:\Users\yanis\Documents\Zylax\zylax-site\src\pages\index.astro.tmp.19208.538649d7e60e found. Prefix filename with an underscore (`_`) to ignore.
+21:50:13 Configuration file updated. Restarting...
+21:50:13 [types] Generated 1ms
+21:58:21 Configuration file updated. Restarting...
+21:58:21 [types] Generated 1ms

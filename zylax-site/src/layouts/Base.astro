@@ -24,7 +24,7 @@ const jsonLd = JSON.stringify({
       '@type': 'Organization',
       name: 'Zylax',
       url: 'https://zylax.fr',
-      logo: 'https://zylax.fr/favicon.svg',
+      logo: 'https://zylax.fr/favicon-32.png',
       email: 'yanis@zylax.fr',
       description: 'Automatisation du support client SaaS B2B par RAG, hébergement européen, RGPD natif.',
       address: { '@type': 'PostalAddress', addressCountry: 'FR' },
@@ -47,6 +47,10 @@ const jsonLd = JSON.stringify({
     <!-- Fonts preload — priorité critique pour LCP -->
     <link rel="preload" href="/fonts/inter-variable.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/syne-variable.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preconnect" href="https://calendly.com" crossorigin />
+    <link rel="dns-prefetch" href="https://calendly.com" />
+    <link rel="preload" href="/_astro/index.D7v9hyZq.css" as="style" />
+    <link rel="preload" href="/_astro/index.DMVmBMwi.css" as="style" />
 
     <!-- SEO -->
     <title>{title}</title>
@@ -70,8 +74,7 @@ const jsonLd = JSON.stringify({
     <meta name="twitter:image" content={ogImage} />
 
     <!-- Favicons -->
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="icon" type="image/png" href="/favicon-32.png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
     <!-- JSON-LD structured data -->

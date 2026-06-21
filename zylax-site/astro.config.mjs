@@ -9,4 +9,17 @@ export default defineConfig({
     }),
   ],
   output: 'static',
+  vite: {
+    build: {
+      minify: 'esbuild',
+      target: 'es2020',
+      rollupOptions: {
+        output: {
+          entryFileNames: '[name].js',
+          chunkFileNames: '[name].js',
+          assetFileNames: '[name].[ext]'
+        }
+      }
+    },
+  },
 });

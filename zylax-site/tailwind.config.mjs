@@ -1,6 +1,17 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
+  safelist: [
+    'bg-white',
+    'text-black',
+    'hover:bg-neutral-200',
+    'bg-transparent',
+    'border',
+    'text-white',
+    'hover:border-[var(--border-strong)]',
+    'text-[var(--text-secondary)]',
+    'hover:text-white',
+  ],
   theme: {
     extend: {
       colors: {

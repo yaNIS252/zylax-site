@@ -5,26 +5,62 @@ const plans = [
   {
     name: 'Starter',
     monthly: 490,
-    install: 249,
     annual: 420,
+    setup: 249,
     recommended: false,
-    stripeMonthly: 'https://buy.stripe.com/4gMdRacV21jH2dL6y93VC00'
+    stripeMonthly: 'https://buy.stripe.com/4gMdRacV21jH2dL6y93VC00',
+    features: [
+      { label: 'Sources doc', value: '1' },
+      { label: 'Volume tickets', value: '500/mois' },
+      { label: 'Canaux', value: 'Zendesk' },
+      { label: 'Routing IA', value: 'Auto + escalade' },
+      { label: 'Langues', value: 'Mono-langue' },
+      { label: 'Ré-ingestion', value: 'Manuelle' },
+      { label: 'SLA réponse', value: '—' },
+      { label: 'Reporting', value: 'Mensuel' },
+      { label: 'Onboarding', value: 'Standard' },
+      { label: 'Accès API', value: 'Non' },
+    ]
   },
   {
     name: 'Pro',
     monthly: 790,
-    install: 490,
-    annual: 670,
+    annual: 720,
+    setup: 490,
     recommended: true,
-    stripeMonthly: 'https://buy.stripe.com/4gM5kEg7ebYlaKh4q13VC03'
+    stripeMonthly: 'https://buy.stripe.com/4gM5kEg7ebYlaKh4q13VC03',
+    features: [
+      { label: 'Sources doc', value: 'Jusqu\'à 3' },
+      { label: 'Volume tickets', value: 'Illimité' },
+      { label: 'Canaux', value: 'Zendesk + Intercom' },
+      { label: 'Routing IA', value: 'Auto + suggestion' },
+      { label: 'Langues', value: 'Mono-langue' },
+      { label: 'Ré-ingestion', value: 'Mensuelle auto' },
+      { label: 'SLA réponse', value: '24h' },
+      { label: 'Reporting', value: 'Mensuel' },
+      { label: 'Onboarding', value: 'Standard' },
+      { label: 'Accès API', value: 'Non' },
+    ]
   },
   {
     name: 'Premium',
     monthly: 1190,
-    install: 700,
     annual: 990,
+    setup: 700,
     recommended: false,
-    stripeMonthly: 'https://buy.stripe.com/6oU3cw4owd2pdWt8Gh3VC05'
+    stripeMonthly: 'https://buy.stripe.com/6oU3cw4owd2pdWt8Gh3VC05',
+    features: [
+      { label: 'Sources doc', value: 'Illimitées' },
+      { label: 'Volume tickets', value: 'Illimité' },
+      { label: 'Canaux', value: 'Zendesk + Intercom' },
+      { label: 'Routing IA', value: 'Auto + suggestion' },
+      { label: 'Langues', value: 'Multi-langues' },
+      { label: 'Ré-ingestion', value: 'Mensuelle auto' },
+      { label: 'SLA réponse', value: '4h' },
+      { label: 'Reporting', value: 'Hebdomadaire' },
+      { label: 'Onboarding', value: 'Dédié' },
+      { label: 'Accès API', value: 'Oui' },
+    ]
   }
 ];
 ---
@@ -36,7 +72,6 @@ const plans = [
 
     <h2
       class="heading-display reveal"
-      style="font-size: clamp(36px, 5vw, 64px); line-height: 1.05; margin-bottom: 24px; margin-top: 16px; max-width: 600px;"
     >
       Choisissez le plan adapté à votre échelle
     </h2>
@@ -49,127 +84,127 @@ const plans = [
       Des forfaits clairs, sans surprise. Optez pour le mensuel sans engagement ou l'engagement 12 mois pour économiser 2 mois.
     </p>
 
-    {/* Toggle mensuel / 12 mois */}
-    <div class="reveal" id="pricing-toggle" style="display: flex; justify-content: center; gap: 16px; margin-bottom: 24px;">
-      <button
-        id="toggle-monthly"
-        class="toggle-btn"
-        style="flex: 1; padding: 12px 24px; font-size: 15px; font-weight: 500; border: 1px solid var(--border); background: transparent; color: var(--text-secondary); cursor: pointer; transition: all 150ms ease;"
-      >
-        Mensuel
-      </button>
-      <button
-        id="toggle-annual"
-        class="toggle-btn"
-        style="flex: 1; padding: 12px 24px; font-size: 15px; font-weight: 500; border: 1px solid var(--border); background: transparent; color: var(--text-secondary); cursor: pointer; transition: all 150ms ease;"
-      >
-        Engagement 12 mois
-      </button>
-    </div>
-
     {/* Cards */}
     <div class="reveal" style="display: grid; gap: 24px;">
-      {plans.map((plan) => (
+      {plans.map((plan, index) => (
         <div
           key={plan.name}
           class="pricing-card"
           style="
             border: 1px solid var(--border);
-            border-radius: 8px;
+            border-radius: 12px;
             overflow: hidden;
             background: var(--bg);
             display: flex;
             flex-direction: column;
+            position: relative;
+            isolation: isolate;
           "
         >
           {/* Badge recommandé */}
           {plan.recommended && (
             <span style="
-              align-self: flex-start;
-              margin: 12px;
-              padding: 2px 8px;
+              position: absolute;
+              top: 8px;
+              left: 8px;
+              padding: 4px 10px;
               font-size: 11px;
               font-weight: 500;
               text-transform: uppercase;
               letter-spacing: 0.1em;
-              border: 1px solid var(--border);
-              color: var(--text);
-              background: rgba(255,255,255,0.05);
+              border: 1px solid var(--accent);
+              color: var(--accent);
+              background: rgba(6,182,212,0.1);
+              backdrop-filter: blur(4px);
             ">
               RECOMMANDÉ
             </span>
           )}
 
-          <div style="flex: 1; display: flex; flex-direction: column; padding: 24px;">
+          <div style="flex: 1; display: flex; flex-direction: column; padding: 32px 24px 24px 24px;">
             <h3 style="
               font-family: 'Syne', sans-serif;
               font-size: 20px;
               font-weight: 600;
               color: var(--text);
-              margin: 0 0 12px 0;
+              margin: 0 0 16px 0;
             ">
               {plan.name}
             </h3>
 
-            {/* Prix */}
-            <div style="
-              display: flex;
-              flex-direction: column;
-              align-items: flex-start;
-              margin-bottom: 16px;
-            ">
-              <span class="price-annual" style="
+            {/* Prix principal */}
+            <div class="price-wrapper" style="display: flex; flex-direction: column; align-items: flex-start; margin-bottom: 20px;">
+              {/* Prix mensuel */}
+              <div class="price monthly" style="
                 font-family: 'Syne', sans-serif;
-                font-size: 28px;
-                font-weight: 700;
-                color: var(--text);
-                display: block;
+                font-size: 32px;
+                font-weight: 800;
+                color: var(--accent);
+                margin-bottom: 4px;
               ">
-                {plan.annual} €
-              </span>
-              <span class="price-monthly" style="
-                font-family: 'Syne', sans-serif;
-                font-size: 28px;
-                font-weight: 700;
-                color: var(--text);
-                display: none;
-              ">
-                {plan.monthly} €
-              </span>
-              <span style="
+                {plan.monthly}€
+              </div>
+              <span class="price-suffix monthly" style="
                 font-size: 14px;
                 color: var(--text-secondary);
-                margin-top: 4px;
-                display: block;
+                margin-bottom: 4px;
               ">/mois</span>
+
+              {/* Frais d'installation */}
+              {plan.setup > 0 && (
+                <div class="install-fee monthly" style="
+                  font-size: 13px;
+                  color: var(--text-secondary);
+                  margin-top: 4px;
+                ">
+                  + {plan.setup}€ frais de setup
+                </div>
+              )}
+
+              {/* Note annuelle */}
+              <div class="annual-note" style="
+                font-size: 13px;
+                color: var(--text-muted);
+                margin-top: 8px;
+                line-height: 1.4;
+              ">
+                Profitez de 2 mois offerts avec un engagement de 12 mois ({plan.annual}€/mois, sans frais de setup)
+              </div>
             </div>
 
-            {/* Frais d'installation */}
-            <div class="install-fee" style="
-              font-size: 14px;
-              color: var(--text-secondary);
-              margin-bottom: 16px;
-              display: none;
-            ">
-              + {plan.install} € frais d'installation uniques
+            {/* Features table */}
+            <div class="features-table" style="margin-top: 24px;">
+              {plan.features.map((feat, fidx) => (
+                <div key={fidx} style="display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-top: 1px solid rgba(255,255,255,0.04);">
+                  <span style="font-size: 13px; color: var(--text-muted);">{feat.label}</span>
+                  <span
+                    style={{
+                      fontWeight: 500,
+                      color: feat.value === 'Oui' || feat.value === 'Non' ?
+                        (feat.value === 'Oui' ? 'var(--accent)' : 'var(--text-muted)') :
+                        feat.value === '—' ?
+                          'var(--text-muted)' :
+                          feat.value.match(/h$/) || feat.value.match(/mois$/) || feat.value.match(/€/) ?
+                            'var(--accent)' :
+                            'var(--text)'
+                    }}
+                  >
+                    {feat.value}
+                  </span>
+                </div>
+              ))}
+              {/* Hide first border-top */}
+              <style>
+                .features-table > div:first-child { border-top: none; }
+              </style>
             </div>
-
-            {/* Note économies */}
-            <p style="
-              font-size: 14px;
-              color: var(--text-secondary);
-              font-style: italic;
-              margin-bottom: 20px;
-              display: block;
-            ">
-              Économisez 2 mois
-            </p>
 
             {/* CTA */}
             <Button
               variant="primary"
-              href="#" /* placeholder, will be set via JS */
-              style="align-self: flex-start; width: fit-content;"
+              href={plan.stripeMonthly}
+              class="pricing-cta"
+              style="align-self: stretch; margin-top: 24px;"
             >
               Choisir ce plan
             </Button>
@@ -190,86 +225,11 @@ const plans = [
 </section>
 
 <style>
-  /* Toggle button active state */
-  .toggle-btn.active {
-    background: var(--bg-elevated);
-    color: var(--text);
-    border-color: var(--border);
+  /* Ensure three cards side-by-side on desktop, stack on mobile */
+  @media (min-width: 768px) {
+    .reveal[style*="display: grid;"] {
+      grid-template-columns: repeat(3, 1fr);
+    }
   }
-
-  /* Pricing card hover effect */
-  .pricing-card:hover {
-    border-color: var(--accent);
-  }
-
-  /* Toggle views: default shows annual (12 mois) */
-  .price-annual { display: block; }
-  .price-monthly { display: none; }
-  .install-fee { display: none; }
-
-  /* When monthly toggle active */
-  .toggle-monthly .price-annual { display: none; }
-  .toggle-monthly .price-monthly { display: block; }
-  .toggle-monthly .install-fee { display: block; }
+  /* On mobile, default grid is 1fr (already) */
 </style>
-
-<script>
-  // Get toggle buttons and container
-  const monthlyBtn = document.getElementById('toggle-monthly');
-  const annualBtn = document.getElementById('toggle-annual');
-  const pricingRoot = document.getElementById('pricing'); // section root
-
-  // Set initial view: annual (12 mois) active
-  annualBtn.classList.add('active');
-  // Initialize annual view href/text
-  setView(false);
-
-  // Function to switch view
-  function setView(showMonthly) {
-    if (showMonthly) {
-      pricingRoot.classList.add('toggle-monthly');
-      monthlyBtn.classList.add('active');
-      annualBtn.classList.remove('active');
-      // Update CTA hrefs and text
-      document.querySelectorAll('.pricing-card').forEach((card, index) => {
-        const plan = plans[index];
-        const btn = card.querySelector('button'); // Button component renders as <button>
-        if (btn) {
-          btn.href = plan.stripeMonthly;
-          btn.textContent = 'Souscrire →';
-        }
-      });
-    } else {
-      pricingRoot.classList.remove('toggle-monthly');
-      monthlyBtn.classList.remove('active');
-      annualBtn.classList.add('active');
-      // Update CTA hrefs and text for annual
-      document.querySelectorAll('.pricing-card').forEach((card, index) => {
-        const plan = plans[index];
-        const btn = card.querySelector('button');
-        if (btn) {
-          btn.href = 'mailto:yanis@zylax.fr';
-          btn.textContent = 'Nous contacter →';
-        }
-      });
-    }
-  }
-
-  // Event listeners
-  monthlyBtn.addEventListener('click', () => setView(true));
-  annualBtn.addEventListener('click', () => setView(false));
-
-  // Optional: keyboard accessibility
-  monthlyBtn.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      setView(true);
-    }
-  });
-  annualBtn.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      setView(false);
-    }
-  });
-</script>

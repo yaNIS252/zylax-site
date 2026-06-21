@@ -12,12 +12,18 @@ export interface Props {
 }
 
 const { height = 32, class: className = '' } = Astro.props;
----
 
-<img
-  src="/logo.png"
+import logoImg from '../assets/logo.png';
+import { Image } from 'astro:assets';
+
+// Scale width to maintain aspect ratio based on desired height
+const scale = height / logoImg.height;
+const width = Math.round(logoImg.width * scale);
+---
+<Image
+  src={logoImg.src}
   alt="Zylax"
-  width={height}
+  width={width}
   height={height}
   class={className}
   loading="eager"

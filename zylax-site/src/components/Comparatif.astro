@@ -4,7 +4,6 @@
  * Met en avant les avantages différenciants de Zylax par rapport aux alternatives réelles
  */
 ---
-
 <section id="comparatif" class="section" style="border-top: 1px solid var(--border);">
   <div class="container">
 
@@ -12,14 +11,14 @@
 
     <h2
       class="heading-display reveal"
-      style="font-size: clamp(36px, 5vw, 64px); line-height: 1.05; margin-bottom: 24px; margin-top: 16px; max-width: 720px;"
+      style="font-size: clamp(36px, 5vw, 64px); line-height: 1.05; margin-bottom: 24px; margin-top: 16px;"
     >
       Pourquoi pas Intercom Fin, Decagon ou Ada ?
     </h2>
 
     <p
       class="reveal"
-      style="font-size: 18px; line-height: 1.7; color: var(--text-secondary); max-width: 700px; margin-bottom: 48px;"
+      style="font-size: 18px; line-height: 1.7; color: var(--text-secondary); margin-bottom: 48px;"
     >
       Les solutions enterprise américaines visent des budgets de 5 000 €/mois minimum
       et des cycles de vente de 3 mois. Zylax vise le SaaS B2B francophone
@@ -29,103 +28,238 @@
     {/* Comparison Table */}
     <div class="reveal" style="border: 1px solid var(--border); overflow: hidden; max-width: 1000px;">
       {/* Header */}
-      <div style="display: grid; grid-template-columns: 2fr 2fr 2fr 2fr 2fr; gap: 0;
-              padding: 14px 24px; background: var(--bg-elevated); border-bottom: 1px solid var(--border);">
-        <span style="font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.12em; color: var(--text-muted);">Solution</span>
-        <span style="font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.12em; color: var(--text-muted);">Cible</span>
-        <span style="font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.12em; color: var(--text-muted);">Prix</span>
-        <span style="font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.12em; color: var(--text-muted);">Setup</span>
-        <span style="font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.12em; color: var(--text-muted);">Point faible</span>
+      <div
+        style="
+          display: grid;
+          grid-template-columns: 2fr 2fr 2fr 2fr 2fr;
+          gap: 0;
+          padding: 14px 24px;
+          background: var(--bg-elevated);
+          border-bottom: 1px solid var(--border);
+        "
+      >
+        <span
+          style="
+            font-size: 11px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--text);
+          "
+        >
+          Solution
+        </span>
+        <span
+          style="
+            font-size: 11px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--text);
+          "
+        >
+          Cible
+        </span>
+        <span
+          style="
+            font-size: 11px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--text);
+          "
+        >
+          Prix
+        </span>
+        <span
+          style="
+            font-size: 11px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--text);
+          "
+        >
+          Setup
+        </span>
+        <span
+          style="
+            font-size: 11px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--text);
+          "
+        >
+          Point faible
+        </span>
       </div>
 
       {/* Rows */}
-      {[
-        {
-          solution: 'Zylax',
-          cible: 'SaaS B2B FR 10–200 emp.',
-          prix: '490–1190€/mois',
-          setup: '5 jours',
-          pointFaible: 'Solo, pas de SLA agressif',
-          isZylax: true
-        },
-        {
-          solution: 'Intercom Fin',
-          cible: 'Mid-market US/EU',
-          prix: '~0,99$/résolution',
-          setup: '2–4 sem.',
-          pointFaible: 'Cher au volume, anglais natif',
-          isZylax: false
-        },
-        {
-          solution: 'Decagon',
-          cible: 'Enterprise US',
-          prix: '5 000€+/mois',
-          setup: '3+ mois',
-          pointFaible: 'Inaccessible aux PME',
-          isZylax: false
-        },
-        {
-          solution: 'Ada',
-          cible: 'Enterprise US/CA',
-          prix: '5 000€+/mois custom',
-          setup: '3+ mois',
-          pointFaible: 'Onboarding lourd, pas de FR natif',
-          isZylax: false
-        },
-        {
-          solution: 'Zendesk AI',
-          cible: 'Clients Zendesk existants',
-          prix: '+50$/agent/mois',
-          setup: 'Inclus',
-          pointFaible: 'Verrouillé écosystème Zendesk',
-          isZylax: false
-        }
-      ].map((row, i) => (
-        <div
-          key={i}
-          style={`display: grid; grid-template-columns: 2fr 2fr 2fr 2fr 2fr; gap: 0;
-                  padding: 20px 24px; align-items: start;
-                  ${i < 4 ? 'border-bottom: 1px solid var(--border);' : ''}
-                  ${row.isZylax ? 'border-left: 2px solid var(--accent); background: var(--bg-elevated);' : ''}`}
-        >
-          {/* Solution */}
-          <span style="font-size: 14px; color: var(--text); font-weight: 500;">
-            {row.solution}
-          </span>
+      <div class="overflow-container">
+        {[
+          {
+            solution: 'Zylax',
+            cible: 'SaaS B2B FR 10–200 emp.',
+            prix: '490–1190€/mois',
+            setup: '5 jours',
+            pointFaible: 'Solo, pas de SLA agressif',
+            isZylax: true
+          },
+          {
+            solution: 'Intercom Fin',
+            cible: 'Mid-market US/EU',
+            prix: '~0,99$/résolution',
+            setup: '2–4 sem.',
+            pointFaible: 'Cher au volume, anglais natif',
+            isZylax: false
+          },
+          {
+            solution: 'Decagon',
+            cible: 'Enterprise US',
+            prix: '5 000€+/mois',
+            setup: '3+ mois',
+            pointFaible: 'Inaccessible aux PME',
+            isZylax: false
+          },
+          {
+            solution: 'Ada',
+            cible: 'Enterprise US/CA',
+            prix: '5 000€+/mois custom',
+            setup: '3+ mois',
+            pointFaible: 'Onboarding lourd, pas de FR natif',
+            isZylax: false
+          },
+          {
+            solution: 'Zendesk AI',
+            cible: 'Clients Zendesk existants',
+            prix: '+50$/agent/mois',
+            setup: 'Inclus',
+            pointFaible: 'Verrouillé écosystème Zendesk',
+            isZylax: false
+          }
+        ].map((row, i) => (
+          <div
+            key={i}
+            style={`
+              display: grid;
+              grid-template-columns: 2fr 2fr 2fr 2fr 2fr;
+              gap: 0;
+              padding: 20px 24px;
+              align-items: start;
+              ${i < 4 ? 'border-bottom: 1px solid var(--border);' : ''}
+              ${row.isZylax
+                ? 'border-left: 2px solid var(--accent); background: linear-gradient(90deg, rgba(6,182,212,0.05), rgba(139,92,246,0.02));'
+                : 'background: rgba(255,255,255,0.02); backdrop-filter: blur(8px);'}
+            `}
+          >
+            {/* Solution */}
+            <span
+              style="
+                font-size: 14px;
+                color: var(--text);
+                font-weight: 500;
+                word-break: break-word;
+                ${row.isZylax ? 'color: var(--accent);' : ''}
+              "
+            >
+              {row.solution}
+            </span>
 
-          {/* Cible */}
-          <span style="font-size: 14px; color: var(--text-secondary);">
-            {row.cible}
-          </span>
+            {/* Cible */}
+            <span
+              style="
+                font-size: 14px;
+                color: var(--text-secondary);
+                word-break: break-word;
+              "
+            >
+              {row.cible}
+            </span>
 
-          {/* Prix */}
-          <span style="font-size: 14px; color: var(--text-secondary);">
-            {row.prix}
-          </span>
+            {/* Prix */}
+            <span
+              style="
+                font-size: 14px;
+                color: var(--text-secondary);
+                word-break: break-word;
+              "
+            >
+              {row.prix}
+            </span>
 
-          {/* Setup */}
-          <span style="font-size: 14px; color: var(--text-secondary);">
-            {row.setup}
-          </span>
+            {/* Setup */}
+            <span
+              style="
+                font-size: 14px;
+                color: var(--text-secondary);
+                word-break: break-word;
+              "
+            >
+              {row.setup}
+            </span>
 
-          {/* Point faible */}
-          <span style="font-size: 14px; color: var(--text-secondary);">
-            {row.pointFaible}
-          </span>
-        </div>
-      ))}
+            {/* Point faible */}
+            <span
+              style="
+                font-size: 14px;
+                color: var(--text-secondary);
+                word-break: break-word;
+              "
+            >
+              {row.pointFaible}
+            </span>
+          </div>
+        ))}
+      </div>
+
+      {/* Honnête mention sous le tableau */}
+      <p
+        class="reveal"
+        style="font-size: 14px; color: var(--text); margin-top: 24px; margin-bottom: 0; line-height: 1.6;"
+      >
+        Zylax est une solution solo en early stage. Si vous avez besoin
+        d'un SLA 99,9% contractuel ou d'une équipe support dédiée,
+        Decagon ou Ada sont plus adaptés — et plus chers.
+      </p>
 
     </div>
 
-    {/* Honnête mention sous le tableau */}
-    <p
-      class="reveal"
-      style="font-size: 14px; color: var(--text-muted); max-width: 800px; margin: 24px auto 0; line-height: 1.6; text-align: center;"
-    >
-      Zylax est une solution solo en early stage. Si vous avez besoin
-      d'un SLA 99,9% contractuel ou d'une équipe support dédiée,
-      Decagon ou Ada sont plus adaptés — et plus chers.
-    </p>
-
   </div>
 </section>
+
+<style>
+  /* Responsive sticky first column */
+  @media (max-width: 768px) {
+    #comparatif .overflow-container {
+      display: block;
+      width: 100%;
+      overflow-x: auto;
+    }
+    #comparatif .overflow-container > div {
+      display: grid;
+      grid-template-columns: 2fr 2fr 2fr 2fr 2fr;
+    }
+    /* Make first column sticky */
+    #comparatif .overflow-container > div > span:nth-child(1) {
+      position: sticky;
+      left: 0;
+      background: var(--bg);
+      z-index: 2;
+      padding-left: 24px;
+      /* Adjust for border */
+      border-right: 1px solid var(--border);
+    }
+    /* Reduce padding on small screens */
+    #comparatif .overflow-container > div {
+      padding: 12px 16px;
+    }
+    #comparatif .overflow-container > div > span {
+      font-size: 13px;
+    }
+    /* Header sticky as well? */
+    #comparatif .overflow-container > div:nth-child(1) > span:nth-child(1) {
+      background: var(--bg-elevated);
+    }
+  }
+</style>

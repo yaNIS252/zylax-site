@@ -29,27 +29,29 @@
    ============================================================ */
 :root {
   /* Backgrounds */
-  --bg:           #0a0a0a;
-  --bg-elevated:  #141414;
-  --bg-overlay:   #1a1a1a;
+  --bg: #0A0A0B;
+  --bg-elevated: #111114;
+  --bg-overlay: rgba(17,17,20,0.6);
 
   /* Borders */
-  --border:        #262626;
-  --border-strong: #404040;
+  --border: rgba(255,255,255,0.08);
+  --border-strong: rgba(255,255,255,0.15);
 
   /* Text */
-  --text:           #fafafa;
-  --text-secondary: #a3a3a3;
-  --text-muted:     #525252;
+  --text: #F8F8F8;
+  --text-secondary: #A1A1AA;
+  --text-muted: #71717A;
 
-  /* Accent (blanc = accent en monochrome strict) */
-  --accent:        #ffffff;
-  --accent-hover:  #e5e5e5;
+  /* Accent */
+  --accent: #06B6D4;
+  --accent-secondary: #8B5CF6;
+  --accent-gradient: linear-gradient(90deg, var(--accent), var(--accent-secondary));
+  --accent-hover: #06B6D4;
 
-  /* Scoring routing — 3 nuances de gris, aucune couleur */
-  --score-high:   #ffffff;
-  --score-mid:    #a3a3a3;
-  --score-low:    #525252;
+  /* Scoring routing */
+  --score-high: #06B6D4;   /* cyan - auto-résolu */
+  --score-mid: #FBBF24;    /* amber - suggestion */
+  --score-low: #F87171;    /* red - escalade */
 }
 
 /* ============================================================
@@ -231,4 +233,10 @@ body {
    ============================================================ */
 .counter {
   display: inline-block;
+}
+
+/* Reduced heading size for softer, premium feel */
+.heading-display {
+  font-size: clamp(24px, 4vw, 36px) !important;
+  line-height: 1.2 !important;
 }
